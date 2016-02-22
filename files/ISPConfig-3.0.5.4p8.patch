@@ -1,0 +1,31 @@
+diff -Nupr ispconfig3_install.orig/install/install.php ispconfig3_install.new/install/install.php
+--- ispconfig3_install.orig/install/install.php	2015-06-05 08:06:30.000000000 +0000
++++ ispconfig3_install.new/install/install.php	2016-02-10 08:48:29.995528000 +0000
+@@ -391,11 +391,12 @@ if($install_mode == 'standard') {
+ 	//if($conf['ufw']['installed'] == true && $conf['ufw']['init_script'] != '' && is_file($conf['init_scripts'].'/'.$conf['ufw']['init_script']))     system($conf['init_scripts'].'/'.$conf['ufw']['init_script'].' restart &> /dev/null');
+ } else {
+ 
+-	//* In expert mode, we select the services in the following steps, only db is always available
++	//* In expert mode, we select the services in the following steps
+ 	$conf['services']['mail'] = false;
+ 	$conf['services']['web'] = false;
+ 	$conf['services']['dns'] = false;
+-	$conf['services']['db'] = true;
++	$conf['services']['db'] = false;
++	$conf['services']['file'] = false;
+ 	$conf['services']['firewall'] = false;
+ 	$conf['services']['proxy'] = false;
+ 
+@@ -440,6 +441,12 @@ if($install_mode == 'standard') {
+ 		$inst->dbmaster = $inst->db;
+ 	}
+ 
++	//* Configure MySQL
++	if(strtolower($inst->simple_query('Configure MySQL Server', array('y', 'n'), 'y','configure_db')) == 'y') {
++		swriteln('Configuring MySQL');
++		$conf['services']['db'] = true;
++	}
++
+ 	//* Create the mysql database
+ 	$inst->configure_database();
+ 

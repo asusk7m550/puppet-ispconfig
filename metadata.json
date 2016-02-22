@@ -1,0 +1,14 @@
+{
+  "name": "asusk7m550-ispconfig",
+  "version": "0.1.0",
+  "author": "Jasper Aikema",
+  "summary": "It installs ispconfig",
+  "license": "GNU General Public License 3.0",
+  "source": "https://github.com/asusk7m550/puppet-ispconfig",
+  "project_page": "https://github.com/asusk7m550/puppet-ispconfig",
+  "issues_url": "https://github.com/asusk7m550/puppet-ispconfig/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ]
+}
+
